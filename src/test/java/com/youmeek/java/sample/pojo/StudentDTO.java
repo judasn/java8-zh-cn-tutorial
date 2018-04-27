@@ -1,4 +1,4 @@
-package com.youmeek.java.pojo;
+package com.youmeek.java.sample.pojo;
 
 import java.util.Date;
 

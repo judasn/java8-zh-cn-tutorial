@@ -1,6 +1,6 @@
-package com.youmeek.java.main;
+package com.youmeek.java.sample.main;
 
-import com.youmeek.java.pojo.Student;
+import com.youmeek.java.sample.pojo.Student;
 import org.junit.Test;
 
 import java.util.Date;
@@ -88,6 +88,8 @@ public class OptionalTest {
 		Optional<Student> nullAbleObject = Optional.ofNullable(student);
 		Optional<String> name = nullAbleObject.map(Student::getName);
 		System.out.println("--------------------------------" + name.orElseGet(() -> "这是默认值"));
+		
+		// 没有则调用方法去产生一个
 		System.out.println("--------------------------------" + name.orElseGet(() -> this.testOrElseGet(1)));
 
 	}

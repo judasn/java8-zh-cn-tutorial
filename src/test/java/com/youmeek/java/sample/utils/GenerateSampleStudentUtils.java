@@ -1,6 +1,6 @@
-package com.youmeek.java.utils;
+package com.youmeek.java.sample.utils;
 
-import com.youmeek.java.pojo.Student;
+import com.youmeek.java.sample.pojo.Student;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GenerateStudentUtils {
+public class GenerateSampleStudentUtils {
 
 	public static List<Student> list() throws ParseException {
 

@@ -1,8 +1,8 @@
-package com.youmeek.java.main;
+package com.youmeek.java.sample.main;
 
-import com.youmeek.java.pojo.Student;
-import com.youmeek.java.pojo.StudentDTO;
-import com.youmeek.java.utils.GenerateStudentUtils;
+import com.youmeek.java.sample.pojo.Student;
+import com.youmeek.java.sample.pojo.StudentDTO;
+import com.youmeek.java.sample.utils.GenerateSampleStudentUtils;
 import org.junit.Test;
 
 import java.text.ParseException;
@@ -64,7 +64,7 @@ public class StreamTest {
      */
     @Test
     public void test231() throws ParseException {
-        Map<String, Student> studentMap = GenerateStudentUtils.map();
+        Map<String, Student> studentMap = GenerateSampleStudentUtils.map();
 
         // 写法一
         Map<String, Student> resultMap = studentMap.entrySet().stream()
@@ -87,7 +87,7 @@ public class StreamTest {
      */
     @Test
     public void test2131() throws ParseException {
-        Map<String, Student> studentMap = GenerateStudentUtils.map();
+        Map<String, Student> studentMap = GenerateSampleStudentUtils.map();
 
         String result = studentMap.entrySet().stream()
                 .filter(x -> (x.getValue().getName()).contains("e"))
@@ -105,7 +105,7 @@ public class StreamTest {
      */
     @Test
     public void test23431() throws ParseException {
-        Map<String, Student> studentMap = GenerateStudentUtils.map();
+        Map<String, Student> studentMap = GenerateSampleStudentUtils.map();
         //方式一
         Map<String, Student> resultMap = studentMap.entrySet().stream()
                 .filter(x -> {
@@ -142,7 +142,7 @@ public class StreamTest {
      */
     @Test
     public void test23311() throws ParseException {
-        Map<String, Student> studentMap = GenerateStudentUtils.map();
+        Map<String, Student> studentMap = GenerateSampleStudentUtils.map();
 
         String result = studentMap.entrySet().stream()
                 .filter(x -> {
@@ -165,7 +165,7 @@ public class StreamTest {
      */
     @Test
     public void test2334431() throws ParseException {
-        Map<String, Student> studentMap = GenerateStudentUtils.map();
+        Map<String, Student> studentMap = GenerateSampleStudentUtils.map();
 
         Map<String, Student> resultMap = filterByValue(studentMap, x -> x.getName().contains("e"));
         Map<String, Student> resultMap2 = filterByValue(studentMap, x -> (x.getName().contains("e") && x
@@ -195,7 +195,7 @@ public class StreamTest {
      */
     @Test
     public void test2331() throws ParseException {
-        Map<String, Student> studentMap = GenerateStudentUtils.map();
+        Map<String, Student> studentMap = GenerateSampleStudentUtils.map();
 
         // 写法一
         Map<String, Student> resultMap = studentMap.entrySet().stream()
@@ -245,7 +245,7 @@ public class StreamTest {
      */
     @Test
     public void test11() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
 
         List<Student> resultList = studentList.stream().sorted(Comparator.comparing(Student::getCreateDatetime))
                 .collect(Collectors.toList());
@@ -259,7 +259,7 @@ public class StreamTest {
      */
     @Test
     public void test12() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
 
         List<Student> resultList = studentList.stream()
                 .sorted(Comparator.comparing(Student::getCreateDatetime).reversed()).collect(Collectors.toList());
@@ -274,7 +274,7 @@ public class StreamTest {
      */
     @Test
     public void test2() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
 
         List<String> userNameList = studentList.stream().map(x -> x.getName()).collect(Collectors.toList());
 
@@ -287,7 +287,7 @@ public class StreamTest {
      */
     @Test
     public void test212() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
 
         List<Student> resultList =
                 studentList.stream()
@@ -306,7 +306,7 @@ public class StreamTest {
      */
     @Test
     public void test2112() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
 
         // 返回的是单个对象，不是 List
         Student student1 = studentList.stream()
@@ -334,7 +334,7 @@ public class StreamTest {
      */
     @Test
     public void test21221() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
 
         List<String> userNameList =
                 studentList.stream()
@@ -350,7 +350,7 @@ public class StreamTest {
      */
     @Test
     public void test211221() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
 
         String result = studentList.stream()
                 .filter(user -> user.getAge() > 20)
@@ -365,7 +365,7 @@ public class StreamTest {
      */
     @Test
     public void test2121() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
 
         String name = studentList.stream()
                 .filter(x -> "DuskLife".equals(x.getName()))
@@ -382,7 +382,7 @@ public class StreamTest {
      */
     @Test
     public void test22() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
 
         List<String> userNameList =
                 studentList.stream()
@@ -399,7 +399,7 @@ public class StreamTest {
      */
     @Test
     public void test222() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
 
         List<StudentDTO> resultList = studentList.stream().map(temp -> {
             StudentDTO obj = new StudentDTO();
@@ -423,7 +423,7 @@ public class StreamTest {
      */
     @Test
     public void test3() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
 
         Optional<Integer> totalAge =
                 studentList.stream()
@@ -440,7 +440,7 @@ public class StreamTest {
      */
     @Test
     public void test4() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
 
         // 写法一
         Optional<Student> expensive = studentList.stream().max(Comparator.comparing(Student::getAge));
@@ -459,7 +459,7 @@ public class StreamTest {
      */
     @Test
     public void test5() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
 
         // 写法一
         Optional<Student> cheapest = studentList.stream().min(Comparator.comparing(Student::getAge));
@@ -478,7 +478,7 @@ public class StreamTest {
      */
     @Test
     public void test6() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
 
         LongSummaryStatistics longSummaryStatistics = studentList.stream()
                 .collect(Collectors.summarizingLong(Student::getAge));
@@ -498,7 +498,7 @@ public class StreamTest {
      */
     @Test
     public void test6332() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
         studentList.add(new Student(1, "YouMeek", 12, new Date()));
 
         Map<String, List<Student>> resultMap = studentList.stream().collect(
@@ -515,7 +515,7 @@ public class StreamTest {
      */
     @Test
     public void test632() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
         studentList.add(new Student(1, "YouMeek", 12, new Date()));
 
         Map<String, Long> resultMap = studentList.stream().collect(
@@ -534,7 +534,7 @@ public class StreamTest {
      */
     @Test
     public void test1632() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
         studentList.add(new Student(1, "YouMeek", 12, new Date()));
 
         Map<String, Integer> resultMap = studentList.stream().collect(
@@ -550,7 +550,7 @@ public class StreamTest {
      */
     @Test
     public void test16332() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
         studentList.add(new Student(1, "YouMeek", 112, new Date()));
 
         Map<String, Double> resultMap = studentList.stream().collect(
@@ -566,7 +566,7 @@ public class StreamTest {
      */
     @Test
     public void test163212() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
         studentList.add(new Student(1, "YouMeek", 112, new Date()));
 
         Map<Integer, Set<Integer>> resultMap = studentList.stream().collect(
@@ -587,7 +587,7 @@ public class StreamTest {
      */
     @Test
     public void test1632122() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
 
         Map<Boolean, List<Student>> resultMap = studentList.stream()
                 .collect(Collectors.partitioningBy(e -> e.getAge() > 20));
@@ -602,7 +602,7 @@ public class StreamTest {
      */
     @Test
     public void test16321222() throws ParseException {
-        List<Student> studentList = GenerateStudentUtils.list();
+        List<Student> studentList = GenerateSampleStudentUtils.list();
         studentList.add(new Student(1, "YouMeek", 13, new Date()));
 
         Map<Boolean, Map<String, Long>> resultMap = studentList.stream()
