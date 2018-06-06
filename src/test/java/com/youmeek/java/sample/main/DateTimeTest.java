@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.Period;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
@@ -32,7 +33,9 @@ public class DateTimeTest {
 		int year = localDateObject.getYear();                     // 年份：2017
 		Month month = localDateObject.getMonth();                 // 第几月-英文：JANUARY
 		int monthValue = localDateObject.getMonthValue();        // 第几份：1
-		int dayOfMonth = localDateObject.getDayOfMonth();         // 月份中的第几天：4
+		int dayOfYear = localDateObject.getDayOfYear();        // 这一年的第几天
+		int dayOfMonth = localDateObject.getDayOfMonth();         // 这个月份中的第几天：4
+		int dayOfMonth2 = localDateObject.get(ChronoField.DAY_OF_MONTH);         //另外一种通用用法
 		DayOfWeek dayOfWeek = localDateObject.getDayOfWeek();     // 一周的第几天：WEDNESDAY
 		int lengthOfYear = localDateObject.lengthOfYear();             // 这一年一共有多少天：365
 		int lengthOfMonth = localDateObject.lengthOfMonth();             // 月份的天数：31
@@ -40,12 +43,12 @@ public class DateTimeTest {
 		long toEpochDay = localDateObject.toEpochDay();          // 距离 1970-01-01 00:00:00 年过去了多少天
 		System.out.println("--------------------------------year=" + year);
 		System.out.println("--------------------------------month=" + month);
+		System.out.println("--------------------------------dayOfYear=" + dayOfYear);
 		System.out.println("--------------------------------monthValue（from 1 to 12）=" + monthValue);
 		System.out.println("--------------------------------dayOfMonth=" + dayOfMonth);
+		System.out.println("--------------------------------dayOfMonth2=" + dayOfMonth2);
 		System.out.println("--------------------------------dayOfWeek.toString()=" + dayOfWeek.toString());
-		System.out
-				.println("--------------------------------dayOfWeek.getValue()<from 1 (Monday) to 7 (Sunday)>=" + dayOfWeek
-						.getValue());
+		System.out.println("--------------------------------dayOfWeek.getValue()<from 1 (Monday) to 7 (Sunday)>=" + dayOfWeek.getValue());
 		System.out.println("--------------------------------lengthOfYear=" + lengthOfYear);
 		System.out.println("--------------------------------lengthOfMonth=" + lengthOfMonth);
 		System.out.println("--------------------------------leapYear=" + leapYear);
@@ -72,9 +75,7 @@ public class DateTimeTest {
 		System.out.println("--------------------------------monthValue（from 1 to 12）=" + monthValue);
 		System.out.println("--------------------------------dayOfMonth=" + dayOfMonth);
 		System.out.println("--------------------------------dayOfWeek.toString()=" + dayOfWeek.toString());
-		System.out
-				.println("--------------------------------dayOfWeek.getValue()<from 1 (Monday) to 7 (Sunday)>=" + dayOfWeek
-						.getValue());
+		System.out.println("--------------------------------dayOfWeek.getValue()<from 1 (Monday) to 7 (Sunday)>=" + dayOfWeek.getValue());
 		System.out.println("--------------------------------lengthOfYear=" + lengthOfYear);
 		System.out.println("--------------------------------lengthOfMonth=" + lengthOfMonth);
 		System.out.println("--------------------------------leapYear=" + leapYear);
@@ -108,7 +109,10 @@ public class DateTimeTest {
 		LocalDate localDate = LocalDate.of(2017, Month.JANUARY, 4);
 		LocalTime localTime = LocalTime.of(17, 23, 52);
 		LocalDateTime localDateTimeObject2 = localDate.atTime(localTime);
+		LocalDateTime localDateTimeObject3 = LocalDateTime.of(localDate, localTime);
 
+		System.out.println("--------------------------------localDateTimeObject2=" + localDateTimeObject2);
+		System.out.println("--------------------------------localDateTimeObject3=" + localDateTimeObject3);
 
 		// LocalDateTime 也可以转换成 LocalDate + LocalTime
 		LocalDate date = localDateTimeObject.toLocalDate();
@@ -129,10 +133,8 @@ public class DateTimeTest {
 		long toEpochMilli = now.toEpochMilli();
 
 		System.out.println("--------------------------------currentTimeMillis=" + currentTimeMillis);
-		System.out
-				.println("--------------------------------epochSecond=" + epochSecond);// 1524581378 = 从 1970-01-01 00:00:00 开始到现在过的秒数
-		System.out
-				.println("--------------------------------toEpochMilli=" + toEpochMilli);// 1524581378418 = 从 1970-01-01 00:00:00 开始到现在过的毫秒数
+		System.out.println("--------------------------------epochSecond=" + epochSecond);// 1524581378 = 从 1970-01-01 00:00:00 开始到现在过的秒数
+		System.out.println("--------------------------------toEpochMilli=" + toEpochMilli);// 1524581378418 = 从 1970-01-01 00:00:00 开始到现在过的毫秒数
 	}
 
 	/**
@@ -180,6 +182,22 @@ public class DateTimeTest {
 		System.out.println("--------------------------------milliSeconds=" + milliSeconds);
 		System.out.println("--------------------------------nanoSeconds=" + nanoSeconds);
 	}
+
+	/**
+	 * 两个时间的差，单纯的 年相减、月相减、日相减
+	 */
+	@Test
+	public void testPeriod() {
+		LocalDate localDate1 = LocalDate.of(1017, 1, 10);
+		LocalDate localDate2 = LocalDate.of(2018, 4, 20);
+		Period period = Period.between(localDate1, localDate2);
+
+		//两个时间差：1001 年 3 个月 10 天
+		System.out.println("--------------------------------period.getYears()=" + period.getYears());
+		System.out.println("--------------------------------period.getMonths()=" + period.getMonths());
+		System.out.println("--------------------------------period.getDays()=" + period.getDays());
+	}
+
 
 	/**
 	 * TemporalAdjusters 时间调整器,它用于由当前日期时间经过调整后创建得到新的日期时间对象
@@ -247,6 +265,24 @@ public class DateTimeTest {
 		System.out.println("--------------------------------date1=" + date1);
 	}
 
+
+	/**
+	 * 格式化日期（LocalDate 到 String ; String 到 LocalDate）
+	 */
+	@Test
+	public void testDateFormat() {
+		LocalDate localDate = LocalDate.now();
+		String format1 = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);//结果格式是这样的：20180606
+		String format2 = localDate.format(DateTimeFormatter.ISO_LOCAL_DATE);//结果格式是这样的：2018-06-06
+		System.out.println("--------------------------------format1=" + format1);
+		System.out.println("--------------------------------format2=" + format2);
+
+
+		DateTimeFormatter mySelfFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		String format3 = localDate.format(mySelfFormatter);
+		System.out.println("--------------------------------format3=" + format3);
+	}
+
 	/**
 	 * 格式化日期（LocalDateTime 到 String ; String 到 LocalDateTime）
 	 */
@@ -256,22 +292,38 @@ public class DateTimeTest {
 		String strDate1 = dateTime.format(DateTimeFormatter.BASIC_ISO_DATE);
 		String strDate2 = dateTime.format(DateTimeFormatter.ISO_LOCAL_DATE);
 		String strDate3 = dateTime.format(DateTimeFormatter.ISO_LOCAL_TIME);
-		String strDate4 = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		String strDate5 = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.CHINA));
+		String strDate4 = dateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+		String strDate5 = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		String strDate6 = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.CHINA));
 
-
-		String strDate = "2018-04-24";
-		LocalDate dateResult = LocalDate.parse(strDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		String strDateTime = "2018-04-24 23:24:04";
-		LocalDateTime dateTimeResult = LocalDateTime
-				.parse(strDateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
 		System.out.println("--------------------------------strDate1=" + strDate1);
 		System.out.println("--------------------------------strDate2=" + strDate2);
 		System.out.println("--------------------------------strDate3=" + strDate3);
 		System.out.println("--------------------------------strDate4=" + strDate4);
 		System.out.println("--------------------------------strDate5=" + strDate5);
+		System.out.println("--------------------------------strDate6=" + strDate6);
+		System.out.println("======================================================");
+
+		String strDate = "2018-04-24";
+		LocalDate dateResult = LocalDate.parse(strDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		LocalDate dateResult2 = LocalDate.parse(strDate,  DateTimeFormatter.ISO_LOCAL_DATE);
+		
 		System.out.println("--------------------------------dateResult=" + dateResult);
+		System.out.println("--------------------------------dateResult2=" + dateResult2);
+		
+		System.out.println("======================================================");
+		
+
+		String strDate22 = "20180424";
+		LocalDate dateResult3 = LocalDate.parse(strDate22,  DateTimeFormatter.BASIC_ISO_DATE);
+		System.out.println("--------------------------------dateResult3=" + dateResult3);
+
+		System.out.println("======================================================");
+
+		String strDateTime = "2018-04-24 23:24:04";
+		LocalDateTime dateTimeResult = LocalDateTime.parse(strDateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
 		System.out.println("--------------------------------dateTimeResult=" + dateTimeResult);
 	}
 
