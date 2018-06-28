@@ -86,8 +86,24 @@ public class AnonymousInnerClassTest {
 	 */
 	@Test
 	public void test2222() {
-		List<String> list = Arrays.asList("a", "b", "c");
+		List<String> list = Arrays.asList("ac", "ab", "c");
 		Collections.sort(list, (o1, o2) -> Collator.getInstance().compare(o1, o2));
+		System.out.println("--------------------------------" + list);
+	}
+
+	/**
+	 * 写法 4
+	 * 这里引入一种新的 lambda 特殊语法：方法应用写法，用两个冒号组成，常见的有这几种情况：
+	 * 类 :: 静态方法
+	 * 类 :: new（就是构造方法）
+	 * 对象 :: 方法
+	 * 对象 :: 静态方法
+	 */
+	@Test
+	public void test22222() {
+		List<String> list = Arrays.asList("ac", "ab", "c");
+		Collections.sort(list, Collator.getInstance() :: compare);
+		System.out.println("--------------------------------" + list);
 	}
 
 	//=====================================Collections sort  end=====================================
