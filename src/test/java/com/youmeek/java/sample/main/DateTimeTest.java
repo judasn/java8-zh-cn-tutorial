@@ -102,6 +102,18 @@ public class DateTimeTest {
 	 */
 	@Test
 	public void testLocalDateTime() {
+		// 获取当前时间
+		LocalDateTime now1 = LocalDateTime.now();
+		LocalDateTime now2 = LocalDateTime.now(ZoneId.of("Asia/Shanghai"));
+		// 国内北京时间是由上海时区决定的，没有北京时区这个说法。
+		// 中国一共分了5个时区，以哈尔滨、上海、重庆、乌鲁木齐和喀什为代表
+		// 分别是：长白时区GMT+8:30、中原标准时区 GMT+8、陇蜀时区GMT+7、新藏时区GMT+6和昆仑时区GMT+5:30。它是1912年北京观象台制订，后由内政部批准过。
+		// 所以一般国内的地点 ZoneId.systemDefault() 就是 ZoneId.of("Asia/Shanghai")
+		LocalDateTime now3 = LocalDateTime.now(ZoneId.systemDefault());
+		System.out.println("--------------------------------now1=" + now1);
+		System.out.println("--------------------------------now2=" + now2);
+		System.out.println("--------------------------------now3=" + now3);
+
 		// 直接声明
 		LocalDateTime localDateTimeObject = LocalDateTime.of(2017, Month.JANUARY, 4, 17, 23, 52);
 
@@ -117,6 +129,7 @@ public class DateTimeTest {
 		// LocalDateTime 也可以转换成 LocalDate + LocalTime
 		LocalDate date = localDateTimeObject.toLocalDate();
 		LocalTime time = localDateTimeObject.toLocalTime();
+
 
 	}
 
