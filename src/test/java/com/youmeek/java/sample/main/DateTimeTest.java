@@ -22,6 +22,8 @@ import java.util.Locale;
  */
 public class DateTimeTest {
 
+	private static final String STRING_PATTERN = "yyyy-MM-dd HH:mm:ss";
+
 
 	/**
 	 * LocalDate 类表示一个具体的日期（yyyy-MM-dd），但不包含具体时间，也不包含时区信息
@@ -349,7 +351,7 @@ public class DateTimeTest {
 		String strTime1 = "2018-04-26 23:24:04";
 		LocalDateTime time1 = LocalDateTime.parse(strTime1, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-		String strTime2 = "2018-04-24 23:24:04";
+		String strTime2 = "2018-04-22 23:24:04";
 		LocalDateTime time2 = LocalDateTime.parse(strTime2, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
 		System.out.println(time1.isBefore(time2));  // false  时间1是否在时间2之前
@@ -398,6 +400,14 @@ public class DateTimeTest {
 
 		long currentTimeMillis = System.currentTimeMillis();
 		System.out.println("--------------------------------currentTimeMillis=" + currentTimeMillis);
+	}
+
+	@Test
+	public void epochMilliToLocalDateTime() {
+		long epochMill = 1524581378418L;
+		LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(epochMill), ZoneId.systemDefault());
+		System.out.println("--------------------------------localDateTimeString=" + DateTimeFormatter.ofPattern(STRING_PATTERN).format(localDateTime));
+
 	}
 
 }
