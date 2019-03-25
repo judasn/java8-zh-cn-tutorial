@@ -35,6 +35,9 @@ public class GenerateSampleStudentUtils {
 		studentList.add(new Student(3, "GitNavi", 10, date3));
 		studentList.add(new Student(4, "SayShy", 22, date4));
 		studentList.add(new Student(5, "DuskLife", 36, date5));
+		studentList.add(new Student(6, "DuskLife", 36, date5));
+		studentList.add(new Student(7, null, 36, date5));
+		studentList.add(null);
 
 		return studentList;
 	}

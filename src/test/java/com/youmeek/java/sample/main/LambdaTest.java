@@ -3,12 +3,14 @@ package com.youmeek.java.sample.main;
 import com.youmeek.java.sample.pojo.Student;
 import com.youmeek.java.sample.utils.GenerateSampleStudentUtils;
 import javafx.util.Callback;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.text.ParseException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -86,22 +88,32 @@ public class LambdaTest {
                 .collect(Collectors.toList());
 
         // 这种方式，必须保证每个 ID 都不一样，不然会报：Duplicate key DuskLife
-        Map<Integer, String> idAndNameMap = studentList.stream().collect(
-                Collectors.toMap(Student::getId, Student::getName));
+        // 排除 null 对象，null 属性的场景
+        Map<Integer, String> idAndNameMap33 = studentList.stream()
+                .filter(Objects::nonNull)
+                .filter(x -> StringUtils.isNotBlank(x.getName()))
+                .collect(Collectors.toMap(Student::getId, Student::getName));
+
+        // 这种方式，必须保证每个 ID 都不一样，不然会报：Duplicate key DuskLife
+        // getName 不能为 null，不然会报空指针
+        Map<Integer, String> idAndNameMap = studentList.stream()
+                .collect(Collectors.toMap(Student::getId, Student::getName));
 
         // 这种如果 ID 有一样的，没事，保留旧值
-        Map<Integer, String> idAndNameMap2 = studentList.stream().collect(
-                Collectors.toMap(Student::getId, Student::getName,
-                        (oldValue, newValue) -> oldValue
-                )
-        );
+        Map<Integer, String> idAndNameMap2 = studentList.stream()
+                .collect(
+                        Collectors.toMap(Student::getId, Student::getName,
+                                (oldValue, newValue) -> oldValue
+                        )
+                );
 
         // value 是一个对象
-        Map<Integer, Student> idAndNameMap3 = studentList.stream().collect(
-                Collectors.toMap(Student::getId, Function.identity(),
-                        (oldValue, newValue) -> oldValue
-                )
-        );
+        Map<Integer, Student> idAndNameMap3 = studentList.stream()
+                .collect(
+                    Collectors.toMap(Student::getId, Function.identity(),
+                            (oldValue, newValue) -> oldValue
+                    )
+                );
 
 
         studentList.forEach(item -> {
