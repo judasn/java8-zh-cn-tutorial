@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * lambda 表达式（匿名函数）在简单使用上就是用编写函数的方式编写匿名内部类代码
@@ -77,6 +78,11 @@ public class LambdaTest {
 
 		// 写法二
 		studentList.forEach(System.out::println);
+
+		// 把所有用户名提取到新的集合中
+		List<String> allNameList = studentList.stream()
+				.map(Student::getName)
+				.collect(Collectors.toList());
 
 		studentList.forEach(item -> {
 			if ("DuskLife".equals(item.getName())) {
