@@ -102,6 +102,10 @@ public class LambdaTest {
                 .filter(x -> StringUtils.isNotBlank(x.getName()))
                 .collect(Collectors.toMap(Student::getId, Student::getName));
 
+        Map<String, Student> idAndNameMap3344 = studentList.stream()
+                .filter(x -> StringUtils.isNotBlank(x.getName()))
+                .collect(Collectors.toMap(Student::getName, Function.identity()));
+
         // 这种方式，必须保证每个 ID 都不一样，不然会报：Duplicate key DuskLife
         // getName 不能为 null，不然会报空指针
         Map<Integer, String> idAndNameMap = studentList.stream()
