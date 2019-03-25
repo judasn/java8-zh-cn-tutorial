@@ -83,9 +83,17 @@ public class LambdaTest {
         studentList.forEach(System.out::println);
 
         // 把所有用户名提取到新的集合中
+        List<String> allNameList2 = studentList.stream()
+                .filter(Objects::nonNull)
+                .filter(x -> StringUtils.isNotBlank(x.getName()))
+                .map(Student::getName)
+                .collect(Collectors.toList());
+
+        // 把所有用户名提取到新的集合中
         List<String> allNameList = studentList.stream()
                 .map(Student::getName)
                 .collect(Collectors.toList());
+
 
         // 这种方式，必须保证每个 ID 都不一样，不然会报：Duplicate key DuskLife
         // 排除 null 对象，null 属性的场景
