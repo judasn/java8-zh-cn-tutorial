@@ -7,10 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.text.ParseException;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -62,6 +59,28 @@ public class LambdaTest {
                 System.out.println("Hello E");
             }
         });
+
+        // Convert all Map keys to a List
+        List<String> result = new ArrayList(resultMap.keySet());
+
+        // Convert all Map values to a List
+        List<String> result2 = new ArrayList(resultMap.values());
+
+        // Java 8, Convert all Map keys to a List
+        List<String> result3 = resultMap.keySet().stream()
+                .collect(Collectors.toList());
+
+        // Java 8, Convert all Map values  to a List
+        List<Student> result4 = resultMap.values().stream()
+                .collect(Collectors.toList());
+
+        // Java 8, seem a bit long, but you can enjoy the Stream features like filter and etc.
+        List<Student> result5 = resultMap.values().stream()
+                .filter(x -> !"apple".equalsIgnoreCase(x.getName()))
+                .collect(Collectors.toList());
+
+
+
     }
 
     /**
@@ -126,6 +145,8 @@ public class LambdaTest {
                             (oldValue, newValue) -> oldValue
                     )
                 );
+
+
 
 
         studentList.forEach(item -> {
