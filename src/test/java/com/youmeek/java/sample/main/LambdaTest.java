@@ -53,6 +53,7 @@ public class LambdaTest {
 
         resultMap.forEach((k, v) -> System.out.println("Key : " + k + " Value : " + v));
 
+        // 循环输出
         resultMap.forEach((k, v) -> {
             System.out.println("Key : " + k + " Value : " + v);
             if ("E".equals(k)) {
@@ -60,24 +61,37 @@ public class LambdaTest {
             }
         });
 
-        // Convert all Map keys to a List
+        // 把 map key 变成 list（优先）
         List<String> result = new ArrayList(resultMap.keySet());
 
-        // Convert all Map values to a List
+        // 把 map value 变成 list（优先）
         List<String> result2 = new ArrayList(resultMap.values());
 
-        // Java 8, Convert all Map keys to a List
+        // 把 map key 变成 list(一般如果全部值没有需要中途过滤的，不推荐用这种)
         List<String> result3 = resultMap.keySet().stream()
                 .collect(Collectors.toList());
 
-        // Java 8, Convert all Map values  to a List
+        // 把 map value 变成 list(一般如果全部值没有需要中途过滤的，不推荐用这种)
         List<Student> result4 = resultMap.values().stream()
                 .collect(Collectors.toList());
 
-        // Java 8, seem a bit long, but you can enjoy the Stream features like filter and etc.
+        // 加上过滤条件
         List<Student> result5 = resultMap.values().stream()
                 .filter(x -> !"apple".equalsIgnoreCase(x.getName()))
                 .collect(Collectors.toList());
+
+        // 把 map 的 key 和 value 重新组成一个新的字符串列表
+        List<String> list = resultMap.entrySet().stream()
+                .map(et -> et.getKey() + "_" + et.getValue().getName())
+                .collect(Collectors.toList());
+
+        // 把 map 的 key 和 value 重新组成一个对象，根据 key 正序排序(倒序不知道要如何)
+        List<Person> list2 = resultMap.entrySet().stream()
+                .sorted(Comparator.comparing(Map.Entry::getKey))
+                .map(e -> new Person(e.getKey(), e.getValue().getName()))
+                .collect(Collectors.toList());
+
+
 
 
 
@@ -141,12 +155,10 @@ public class LambdaTest {
         // value 是一个对象
         Map<Integer, Student> idAndNameMap3 = studentList.stream()
                 .collect(
-                    Collectors.toMap(Student::getId, Function.identity(),
-                            (oldValue, newValue) -> oldValue
-                    )
+                        Collectors.toMap(Student::getId, Function.identity(),
+                                (oldValue, newValue) -> oldValue
+                        )
                 );
-
-
 
 
         studentList.forEach(item -> {
